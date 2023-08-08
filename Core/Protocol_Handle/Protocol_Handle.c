@@ -32,11 +32,18 @@ void Protocol_Req(void)
 	}
 	else
 	{
-		Cmd Cmd_Temp = Get_Cmd();
-		if(Cmd_Temp == REQ_)
+		if(Get_Avail())
 		{
-			Scale_t->connected = true;
-			Push_Cmd(ACK_);
+			Cmd Cmd_Temp = Get_Cmd();
+			if(Cmd_Temp == REQ_)
+			{
+				Scale_t->connected = true;
+				Push_Cmd(ACK_);
+			}
+			else
+			{
+				Error_Trigger();
+			}
 		}
 		else
 		{
@@ -72,17 +79,25 @@ Std_Return Protocol_Data(void)
 	}
 	else
 		{
+		if(Get_Avail())
+			{
 			Cmd Cmd_Temp = Get_Cmd();
-			if(Cmd_Temp == VAL_)
-			{
-				float Val = Scale_t->value;
-				Push_Data(Val);
-				Ret_Avail = E_OK;
+						if(Cmd_Temp == VAL_)
+						{
+							float Val = Scale_t->value;
+							Push_Data(Val);
+							Ret_Avail = E_OK;
+						}
+						else
+						{
+							Error_Trigger();
+						}
 			}
-			else
-			{
-				Error_Trigger();
-			}
+		else
+		{
+			Error_Trigger();
+		}
+
 		}
 	return Ret_Avail;
 }

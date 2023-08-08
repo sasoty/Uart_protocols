@@ -11,7 +11,7 @@ extern UART_HandleTypeDef huart2;
 
 void Push_Cmd(Cmd Cmd_Type)
 {
-	Tx_ResetBuf();
+
 	Tx_RingBufferInit();
 	uint8_t Cmd_buffer[3];
 	Cmd_buffer[0] = STX;
