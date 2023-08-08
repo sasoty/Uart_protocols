@@ -140,7 +140,10 @@ int main(void)
 //  Rx_RingBufferInit();
 //  HAL_UART_Receive_IT(&huart2, &RxData, 1);
 
+  while(Scale.connected == false)
+  {
 	  Protocol_Connect(&Scale);
+  }
 
   /* USER CODE END 2 */
 
@@ -148,6 +151,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  /* calculated scale then check Get_Avail if(avail) then send data */
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
